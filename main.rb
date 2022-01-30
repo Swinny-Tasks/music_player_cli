@@ -28,6 +28,27 @@ def print_heading()
     puts add_space("(ง ื▿ ื)ว TEXT MUSIC PLAYER▁ ▂ ▃ ▄", "center").colorize(:color => :green, :background => :black)
 end
 
+#? takes in text and align as parameters. returns text with whitespace
+def add_space(text, align)
+    case align
+    when "left"
+        space_before = 2
+        space_after = 58 - text.size()
+    when "center"
+        space_before = space_after = (60 - text.size())/2
+        space_before += 1 if text.size() % 2 != 0
+    when "columnL"
+        space_before = 2
+        space_after = 28 - text.size()
+    when "columnR"
+        space_after = 2
+        space_before = 28 - text.size()
+    end
+    space_before.times {text = " " + text}
+    space_after.times {text = text + " "}
+    return text
+end
+
 #? asks user what option they choose from the list provided
 def home_menu()
     print_heading()
@@ -50,9 +71,9 @@ def main()
   when 5
     # print goodbye
   else
-      # ask to select for album
-      sleep(1)
-      main()
+    puts add_space("⚠️ please select an album ⚠️", "center").colorize(:color => :red, :background => :black)
+    sleep(1)
+    main()
   end
 end
 
