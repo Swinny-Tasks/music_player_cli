@@ -84,13 +84,63 @@ def read_albums_path()
     end
 end
 
+#? returns a single album from the file in form of a class token
+def album_data(file)
+    album_first_name = file.readline().chomp()
+    artist_first_name = file.readline().chomp()
+    genre = file.readline().chomp()
+    tracks = Array.new()
+    track_number = file.readline().to_i()
+    track_number.times{
+        single_track_name = file.readline().chomp()
+        single_track_location = file.readline().chomp()
+        tracks.push(Track.new(single_track_name, single_track_location))
+    }
+    album = Album.new(album_first_name, artist_first_name, genre, tracks)
+    return album
+end
+
+#? returns array of all albums there in the file
+def read_album_list(path)
+    album_list = Array.new()
+    File.open(path, "r") do |file|
+        number_of_albums = file.readline.to_i()
+        number_of_albums.times{
+            single_album = album_data(file)
+            album_list.push(single_album)
+        }
+    end
+    return album_list
+end
+
+#? asks user for display options (album or genre). used in menu 2
+def display_albums_menu()
+    puts add_space("Display Albums", "left").colorize(:color => :black, :background => :red)
+    puts add_space("1. Display All", "left").colorize(:color => :white, :background => :light_red)
+    puts add_space("2. Display Genre", "left").colorize(:color => :white, :background => :light_red)
+    option = read_integer_in_range(">>>  ", 1, 2)
+end
+
+#? prints details of the given album
+def display_album_details(album, index)
+    #* added 3-spaces after album.title to make it at exact center. (to balance out index number)
+    puts add_space((index.to_s + ". " + album.title + "   "), "center").colorize(:color => :black, :background => :magenta)
+    print add_space(album.artist, "columnL").colorize(:color => :black, :background => :magenta)
+    puts add_space(album.genre, "columnR").colorize(:color => :black, :background => :magenta)
+    for track in album.tracks
+        print add_space(track.title, "columnL").colorize(:color => :white, :background => :light_magenta)
+        puts add_space(track.path, "columnR").colorize(:color => :light_black, :background => :light_magenta)
+    end
+end
+
 #?
 def main()
   user_input = home_menu()
   case user_input
   when 1
     print_heading()
-    # main function
+    path = read_albums_path()
+    album_list = read_album_list(path)
   when 5
     # print goodbye
   else
