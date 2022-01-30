@@ -3,6 +3,24 @@
 require 'colorize'
 require './input_functions.rb'
 
+class Album
+    attr_accessor :title, :artist, :genre ,:tracks
+    def initialize(title, artist, genre, tracks)
+        @title = title
+        @artist = artist
+        @tracks = tracks
+        @genre = genre
+    end
+end
+
+class Track
+    attr_accessor :title, :path
+    def initialize(title, path)
+        @title = title
+        @path = path
+    end
+end
+
 #? prints colored heading on the terminal
 def print_heading()
     puts "\e[H\e[2J"
