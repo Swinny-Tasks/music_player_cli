@@ -67,6 +67,23 @@ def home_menu()
     return read_integer_in_range(">>>  ", 1, 5)
 end
 
+#? returns confirmed file_path entered by the user
+def read_albums_path()
+    puts add_space("Enter Album", "left").colorize(:color => :black, :background => :red)
+    puts add_space("Enter the filename of the music library", "left").colorize(:color => :white, :background => :light_red)
+    file_path = read_string(">>>  ")
+    loop do
+        if File.exists?(file_path)
+            puts add_space("Music Library Loaded.", "left").colorize(:color => :green)
+            enter_to_continue()
+            return file_path
+        else
+            puts add_space("⚠️ FILE NOT FOUND ⚠️", "center").colorize(:color => :red, :background => :black)
+            file_path = read_string(">>>  ")
+        end
+    end
+end
+
 #?
 def main()
   user_input = home_menu()
