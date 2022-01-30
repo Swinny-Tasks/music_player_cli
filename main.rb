@@ -3,6 +3,13 @@
 require 'colorize'
 require './input_functions.rb'
 
+#? prints colored heading on the terminal
+def print_heading()
+    puts "\e[H\e[2J"
+    puts " "
+    puts add_space("(ง ื▿ ื)ว TEXT MUSIC PLAYER▁ ▂ ▃ ▄", "center").colorize(:color => :green, :background => :black)
+end
+
 #? asks user what option they choose from the list provided
 def home_menu()
     print_heading()
@@ -20,6 +27,7 @@ def main()
   user_input = home_menu()
   case user_input
   when 1
+    print_heading()
     # main function
   when 5
     # print goodbye
