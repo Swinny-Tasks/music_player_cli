@@ -49,6 +49,12 @@ def add_space(text, align)
     return text
 end
 
+#? adds pause to the program until the user interacts with ENTER key
+def enter_to_continue
+    puts add_space("Press ENTER...", "left").colorize(:color => :blue)
+    gets()
+end
+
 #? asks user what option they choose from the list provided
 def home_menu()
     print_heading()
