@@ -133,6 +133,26 @@ def display_album_details(album, index)
     end
 end
 
+#? displays all albums in the genre selected by the user
+def display_genre_list(album_list)
+    print_heading()
+    puts add_space("Genre List", "left").colorize(:color => :black, :background => :cyan)
+    unique_genre = Array.new
+    for i in 0...album_list.size()
+        unique_genre.push(album_list[i].genre) if not unique_genre.include?(album_list[i].genre)
+    end
+    for i in 0...unique_genre.size()
+        #* added 1 to avoid giving 0 as an option
+        puts add_space("#{(i+1)}. #{unique_genre[i]}", "left").colorize(:color => :white, :background => :light_cyan)
+    end
+    genre_to_display = read_integer_in_range("Select Genre: ", 1, unique_genre.size()) - 1
+    
+    print_heading()
+    for i in 0...album_list.size()
+        (display_album_details(album_list[i], i+1); puts "") if album_list[i].genre == unique_genre[genre_to_display]
+    end
+end
+
 #?
 def main()
   user_input = home_menu()
