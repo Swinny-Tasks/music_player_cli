@@ -241,6 +241,29 @@ def display_update_options()
     return info_to_edit
 end
 
+#? edits the album element reqested by the user
+def update_album(album_list, album_to_edit, property)
+    puts add_space("Editing Album", "left").colorize(:color => :black, :background => :yellow)
+    puts add_space("Enter new #{property} for #{album_list[album_to_edit].title}", "left").colorize(:color => :light_black, :background => :light_yellow)
+    new_info = read_string(">>> ")
+    return new_info
+end
+
+#? edit track title requested by the user
+def update_tracks(album_list, album_to_edit, path)
+    puts add_space("Select track to edit", "left").colorize(:color => :black, :background => :cyan)
+    index = 0
+    for track in album_list[album_to_edit].tracks
+        index += 1
+        puts add_space("#{index}. #{track.title}", "left").colorize(:color => :white, :background => :light_cyan)
+    end
+    track_to_edit = read_integer_in_range(">>> ", 1, index) -1
+    new_title = read_string("enter new name:")
+    #puts album_list[album_to_edit].tracks[track_to_edit].title
+    updated_file = File.read(path).sub(album_list[album_to_edit].tracks[track_to_edit].title, new_title.chomp())
+    return updated_file
+end
+
 #?
 def main()
   user_input = home_menu()
