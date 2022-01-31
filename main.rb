@@ -163,6 +163,29 @@ def display_play_options()
     return play_option
 end
 
+#? returns list of all songs
+def get_song_index(album_list)
+    song_indexes = Array.new()
+    for album in album_list
+        for track in album.tracks
+            song_indexes.push(track)
+            print add_space("#{song_indexes.size()}. #{track.title}", "columnL").colorize(:color => :white, :background => :light_blue)
+            puts add_space(album.title, "columnR").colorize(:color => :light_white, :background => :light_blue)
+        end
+    end
+    return song_indexes
+end
+
+#? displays the list of all songs and returns the selected track by the user
+def display_song_list(album_list)
+    puts add_space("Select song ID", "left").colorize(:color => :black, :background => :blue)
+    song_indexes = get_song_index(album_list)
+    selected_song = read_integer_in_range(">>> ", 1, song_indexes.size()) - 1
+    song_to_play = song_indexes[selected_song].path
+    puts ("Playing track #{selected_song + 1}- #{song_indexes[selected_song].title}").colorize(:color => :yellow)
+    return song_to_play
+end
+
 #?
 def main()
   user_input = home_menu()
