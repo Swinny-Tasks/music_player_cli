@@ -193,6 +193,29 @@ def play(song_path)
     sleep(2)
 end
 
+#? searches for song by title. plays it if found, shows error if not found
+def search_for_song(album_list)
+    def local_search(song_indexes)
+        user_search = read_string("Query: ")
+        scanned = 0
+        for i in 0...song_indexes.size()
+            if song_indexes[i].title.downcase() == user_search.downcase()
+                play(song_indexes[i].path)
+                puts ("Playing track #{i + 1}- #{song_indexes[i].title}").colorize(:color => :yellow)
+            else
+                scanned += 1
+            end
+        end
+        if scanned == song_indexes.size()
+            puts add_space("⚠️ song not found ⚠️", "center").colorize(:color => :red, :background => :black)
+            local_search(song_indexes)
+        end
+    end
+    puts add_space("Search for Song", "left").colorize(:color => :black, :background => :blue)
+    song_indexes = get_song_index(album_list)
+    local_search(song_indexes)
+end
+
 #?
 def main()
   user_input = home_menu()
