@@ -153,6 +153,16 @@ def display_genre_list(album_list)
     end
 end
 
+#? menu for main option 3
+def display_play_options()
+    print_heading()
+    puts add_space("Play ..(•.•)", "left").colorize(:color => :black, :background => :red)
+    puts add_space("1. Play by ID", "left").colorize(:color => :white, :background => :light_red)
+    puts add_space("2. Search for tracks", "left").colorize(:color => :white, :background => :light_red)
+    play_option = read_integer_in_range(">>> ", 1, 2)
+    return play_option
+end
+
 #?
 def main()
   user_input = home_menu()
