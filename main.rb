@@ -244,8 +244,6 @@ def display_song_list(album_list)
 end
 
 #? pauses for 2 seconds instead of actually playing the song.
-#? for demo 
-#todo change this at the end
 def play(song_path)
     sleep(2)
 end
@@ -327,22 +325,23 @@ def display_goodbye()
     puts add_space("Godbye ˛.  (´• ̮•)*.。*/♫.♫\*˛", "left").colorize(:color => :light_green)
 end
 
+
 #?
 def main()
-  user_input = home_menu()
-  case user_input
-  when 1
-    print_heading()
-    path = read_albums_path()
-    album_list = read_album_list(path)
-    main_menu_loop(album_list, path)
-  when 5
-    display_goodbye()
-  else
-    puts add_space("⚠️ please select an album ⚠️", "center").colorize(:color => :red, :background => :black)
-    sleep(1)
-    main()
-  end
+    user_input = home_menu()
+    case user_input
+    when 1
+        print_heading()
+        path = read_albums_path()
+        album_list = read_album_list(path)
+        main_menu_loop(album_list, path)
+    when 5
+        display_goodbye()
+    else
+        puts add_space("⚠️ please select an album ⚠️", "center").colorize(:color => :red, :background => :black)
+        sleep(1)
+        main()
+    end
 end
 
 main()
