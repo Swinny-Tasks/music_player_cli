@@ -186,6 +186,13 @@ def display_song_list(album_list)
     return song_to_play
 end
 
+#? pauses for 2 seconds instead of actually playing the song.
+#? for demo 
+#todo change this at the end
+def play(song_path)
+    sleep(2)
+end
+
 #?
 def main()
   user_input = home_menu()
