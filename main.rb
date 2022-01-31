@@ -325,7 +325,6 @@ def display_goodbye()
     puts add_space("Godbye ˛.  (´• ̮•)*.。*/♫.♫\*˛", "left").colorize(:color => :light_green)
 end
 
-
 #?
 def main()
     user_input = home_menu()
