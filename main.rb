@@ -216,6 +216,31 @@ def search_for_song(album_list)
     local_search(song_indexes)
 end
 
+#? returns what album the user wants to edit
+def display_update_menu(album_list)
+    print_heading()
+    puts add_space("Edit Album", "left").colorize(:color => :black, :background => :red)
+    puts add_space("Enter Album ID you want to edit", "left").colorize(:color => :white, :background => :light_red)
+    puts ""
+    for i in 0...album_list.size()
+        print add_space("#{i+1}. #{album_list[i].title}", "columnL").colorize(:color => :black, :background => :yellow)
+        puts add_space(album_list[i].genre, "columnR").colorize(:color => :light_black, :background => :yellow)
+    end
+    album_to_edit = read_integer_in_range(">>> ", 1, album_list.size()) - 1
+    return album_to_edit
+end
+
+#? returns what album detail the user want to edit
+def display_update_options()
+    print_heading()
+    puts add_space("Edit Options", "left").colorize(:color => :black, :background => :red)
+    puts add_space("1. Album Title", "left").colorize(:color => :white, :background => :light_red)
+    puts add_space("2. Genre", "left").colorize(:color => :white, :background => :light_red)
+    puts add_space("3. Track information", "left").colorize(:color => :white, :background => :light_red)
+    info_to_edit = read_integer_in_range(">>> ", 1, 3)
+    return info_to_edit
+end
+
 #?
 def main()
   user_input = home_menu()
