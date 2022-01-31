@@ -264,6 +264,12 @@ def update_tracks(album_list, album_to_edit, path)
     return updated_file
 end
 
+#? outputs bye message
+def display_goodbye()
+    puts "\e[H\e[2J"
+    puts add_space("Godbye ˛.  (´• ̮•)*.。*/♫.♫\*˛", "left").colorize(:color => :light_green)
+end
+
 #?
 def main()
   user_input = home_menu()
