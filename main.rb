@@ -67,6 +67,63 @@ def home_menu()
     return read_integer_in_range(">>>  ", 1, 5)
 end
 
+#? main menu loop
+def main_menu_loop(album_list, path)
+    loop do
+        user_input = home_menu()
+        print_heading()
+        case user_input
+        when 1
+            path = read_albums_path()
+            album_list = read_album_list(path)
+            main_menu_loop(album_list, path)
+            break #* to avoid nested main loop
+        when 2
+            display_option = display_albums_menu()
+            print_heading()
+            if display_option == 1
+                for i in 0...album_list.size()
+                    display_album_details(album_list[i], i+1)
+                    puts ""
+                end
+                enter_to_continue()
+            else
+                display_genre_list(album_list)
+                enter_to_continue()
+            end
+        when 3
+            play_option = display_play_options()
+            print_heading()
+            if play_option == 1
+                song_path = display_song_list(album_list)
+            else
+                song_path = search_for_song(album_list)
+            end
+            play(song_path)
+            enter_to_continue()
+        when 4
+            album_to_edit = display_update_menu(album_list)
+            info_to_edit = display_update_options()
+            case info_to_edit
+            when 1
+                new_title = update_album(album_list, album_to_edit, "title")
+                updated_file = File.read(path).sub(album_list[album_to_edit].title, new_title)
+            when 2
+                new_genre = update_album(album_list, album_to_edit, "genre")
+                updated_file = File.read(path).sub(album_list[album_to_edit].genre, new_genre)
+            when 3
+                updated_file = update_tracks(album_list, album_to_edit, path)
+            end
+            File.write(path, updated_file)
+            puts "file updated".colorize(:color => :green)
+            enter_to_continue()
+        when 5
+            display_goodbye()
+            break
+        end
+    end
+end
+
 #? returns confirmed file_path entered by the user
 def read_albums_path()
     puts add_space("Enter Album", "left").colorize(:color => :black, :background => :red)
@@ -278,8 +335,9 @@ def main()
     print_heading()
     path = read_albums_path()
     album_list = read_album_list(path)
+    main_menu_loop(album_list, path)
   when 5
-    # print goodbye
+    display_goodbye()
   else
     puts add_space("⚠️ please select an album ⚠️", "center").colorize(:color => :red, :background => :black)
     sleep(1)
